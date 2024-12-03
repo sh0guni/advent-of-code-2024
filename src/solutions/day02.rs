@@ -52,7 +52,7 @@ fn validate_safety_with_tolerance(line: &Vec<u32>) -> bool {
 }
 
 fn solve_part1(lines: Vec<Vec<u32>>) -> usize {
-    lines.iter().filter(|line| validate_safety(line)).count()
+    lines.into_iter().filter(validate_safety).count()
 }
 
 fn solve_part2(lines: Vec<Vec<u32>>) -> usize {

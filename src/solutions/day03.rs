@@ -1,7 +1,7 @@
 use anyhow::Result;
-use std::fs;
-
+use itertools::Itertools;
 use regex::{Match, Regex};
+use std::fs;
 
 pub fn solve() -> Result<()> {
     let input = fs::read_to_string("inputs/day03.txt")?;
@@ -34,7 +34,7 @@ fn solve_part1(input: &str) -> u32 {
 }
 
 fn solve_part2(input: &str) -> u32 {
-    let mut regexes = [r"mul\((\d{1,3}),(\d{1,3})\)", r"do\(\)", r"don't\(\)"]
+    [r"mul\((\d{1,3}),(\d{1,3})\)", r"do\(\)", r"don't\(\)"]
         .into_iter()
         .map(Regex::new)
         .map(Result::unwrap)
@@ -45,12 +45,7 @@ fn solve_part2(input: &str) -> u32 {
                 .collect::<Vec<_>>()
         })
         .flatten()
-        .collect::<Vec<_>>();
-
-    regexes.sort_by_key(|(_, cap)| cap.get(0).unwrap().start());
-
-    regexes
-        .into_iter()
+        .sorted_by_key(|(_, cap)| cap.get(0).unwrap().start())
         .fold(
             State {
                 result: 0,

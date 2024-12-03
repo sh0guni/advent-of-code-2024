@@ -1,4 +1,5 @@
 use anyhow::Result;
+use itertools::Itertools;
 use std::fs;
 
 pub fn solve() -> Result<()> {
@@ -33,13 +34,12 @@ fn parse_input(input: &str) -> (Vec<u32>, Vec<u32>) {
     (lists[0].clone(), lists[1].clone())
 }
 
-fn solve_part1((mut list1, mut list2): (Vec<u32>, Vec<u32>)) -> u32 {
-    list1.sort();
-    list2.sort();
+fn solve_part1((list1, list2): (Vec<u32>, Vec<u32>)) -> u32 {
     list1
-        .iter()
-        .zip(list2.iter())
-        .map(|(a, b)| a.abs_diff(*b))
+        .into_iter()
+        .sorted()
+        .zip(list2.into_iter().sorted())
+        .map(|(a, b)| a.abs_diff(b))
         .sum()
 }
 
