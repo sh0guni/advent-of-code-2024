@@ -18,29 +18,36 @@ pub fn solve() -> Result<()> {
 }
 
 // Parse the input into two lists of integers
-fn parse_input(input: &str) -> (Vec<i32>, Vec<i32>) {
+fn parse_input(input: &str) -> (Vec<u32>, Vec<u32>) {
     let lists = input
         .lines()
         .map(|line| {
             line.split_whitespace()
-                .map(|s| s.parse::<i32>().unwrap())
-                .collect::<Vec<i32>>()
+                .map(|s| s.parse::<u32>().unwrap())
+                .collect::<Vec<u32>>()
         })
-        .collect::<Vec<Vec<i32>>>();
-    let lists: Vec<Vec<i32>> = (0..2)
-        .map(|i| lists.iter().map(|list| list[i]).collect::<Vec<i32>>())
-        .collect::<Vec<Vec<i32>>>();
+        .collect::<Vec<Vec<u32>>>();
+    let lists: Vec<Vec<u32>> = (0..2)
+        .map(|i| lists.iter().map(|list| list[i]).collect::<Vec<u32>>())
+        .collect::<Vec<Vec<u32>>>();
     (lists[0].clone(), lists[1].clone())
 }
 
-fn solve_part1((mut list1, mut list2): (Vec<i32>, Vec<i32>)) -> i32 {
+fn solve_part1((mut list1, mut list2): (Vec<u32>, Vec<u32>)) -> u32 {
     list1.sort();
     list2.sort();
-    list1.iter().zip(list2.iter()).map(|(a, b)| (a - b).abs()).sum()
+    list1
+        .iter()
+        .zip(list2.iter())
+        .map(|(a, b)| a.abs_diff(*b))
+        .sum()
 }
 
-fn solve_part2((list1, list2): (Vec<i32>, Vec<i32>)) -> i32 {
-    list1.iter().map(|a| list2.iter().filter(|b| a == *b).sum::<i32>()).sum()
+fn solve_part2((list1, list2): (Vec<u32>, Vec<u32>)) -> u32 {
+    list1
+        .iter()
+        .map(|a| list2.iter().filter(|b| a == *b).sum::<u32>())
+        .sum()
 }
 
 #[cfg(test)]

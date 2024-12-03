@@ -9,7 +9,7 @@ fn main() -> anyhow::Result<()> {
 
     match day {
         1 => solutions::day01::solve()?,
-        // 2 => solutions::day02::solve()?,
+        2 => solutions::day02::solve()?,
         _ => println!("Day {} not implemented yet", day),
     }
 
