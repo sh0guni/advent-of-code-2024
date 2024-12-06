@@ -12,6 +12,7 @@ fn main() -> anyhow::Result<()> {
         2 => solutions::day02::solve()?,
         3 => solutions::day03::solve()?,
         4 => solutions::day04::solve()?,
+        5 => solutions::day05::solve()?,
         _ => println!("Day {} not implemented yet", day),
     }
 
