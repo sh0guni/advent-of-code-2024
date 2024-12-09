@@ -1,9 +1,7 @@
+use crate::types::{Point, Vector};
 use anyhow::Result;
 use itertools::Itertools;
-use std::{
-    fs,
-    ops::{Add, Mul},
-};
+use std::fs;
 
 pub fn solve() -> Result<()> {
     let input = fs::read_to_string("inputs/day04.txt")?;
@@ -17,47 +15,6 @@ pub fn solve() -> Result<()> {
     println!("Part 2: {}", result2);
 
     Ok(())
-}
-
-struct Point {
-    x: isize,
-    y: isize,
-}
-
-struct Vector {
-    dx: isize,
-    dy: isize,
-}
-
-impl Point {
-    fn new((x, y): (usize, usize)) -> Self {
-        Self {
-            x: x as isize,
-            y: y as isize,
-        }
-    }
-}
-
-impl Add<Vector> for &Point {
-    type Output = Point;
-
-    fn add(self, rhs: Vector) -> Self::Output {
-        Point {
-            x: self.x + rhs.dx,
-            y: self.y + rhs.dy,
-        }
-    }
-}
-
-impl Mul<usize> for &Vector {
-    type Output = Vector;
-
-    fn mul(self, rhs: usize) -> Self::Output {
-        Vector {
-            dx: self.dx * rhs as isize,
-            dy: self.dy * rhs as isize,
-        }
-    }
 }
 
 fn parse_input(input: &str) -> Vec<Vec<char>> {
